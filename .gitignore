@@ -1,0 +1,8 @@
+# herdr runtime artifacts
+home/.config/herdr/*.log
+home/.config/herdr/session*.json
+home/.config/herdr/*.sock
+home/.config/herdr/release-notes.json
+
+# machine-local zsh secrets (see home/.config/zsh/conf.d/99-local.zsh.example)
+home/.config/zsh/conf.d/99-local.zsh

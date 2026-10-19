@@ -1,0 +1,84 @@
+# herdr configuration, mapped from ~/.tmux.conf
+# Apply to a running server: herdr server reload-config
+# In-app help: prefix+?
+
+onboarding = false
+
+[terminal]
+# tmux: set-option -g default-shell /bin/zsh
+default_shell = "/bin/zsh"
+
+# tmux: bind '"' / '%' / C-c with -c "#{pane_current_path}"
+# Inherit the source pane/workspace cwd for new panes, tabs, and workspaces.
+new_cwd = "follow"
+
+[keys]
+# tmux: unbind C-b; set-option -g prefix C-a
+prefix = "ctrl+a"
+
+# tmux: bind r source-file ~/.tmux.conf
+# Herdr default is prefix+shift+r for reload and prefix+r for resize.
+# Swap them so `r` still means reload.
+reload_config = "prefix+r"
+resize_mode = "prefix+shift+r"
+
+# tmux: bind h/j/k/l select-pane (already Herdr defaults)
+focus_pane_left = "prefix+h"
+focus_pane_down = "prefix+j"
+focus_pane_up = "prefix+k"
+focus_pane_right = "prefix+l"
+
+# tmux: bind -n S-Left / S-Right previous-window / next-window
+# Keep Herdr's prefix+p / prefix+n as well.
+previous_tab = ["prefix+p", "shift+left"]
+next_tab = ["prefix+n", "shift+right"]
+
+# tmux: bind '"' split-window (below); bind % split-window -h (right)
+# Herdr names: vertical = right split, horizontal = down split.
+split_vertical = ["prefix+v", "prefix+%"]
+split_horizontal = ["prefix+minus", "prefix+\""]
+
+# tmux: bind C-c new-window  (plus Herdr default prefix+c)
+new_tab = ["prefix+c", "prefix+ctrl+c"]
+
+# tmux: set -g base-index 1
+# Herdr tabs are already 1-based (prefix+1..9). No extra setting.
+
+# tmux: detach, prefix+d, plus herdr default prefix+q
+detach = ["prefix+d", "prefix+q"]
+
+# tmux: rename tab: prefix+comma, (plus herdr default prefx+shift+t)
+rename_tab = ["prefix+comma", "prefix+shift+t"]
+
+[ui]
+# tmux: set -g mouse on
+mouse_capture = true
+
+# tmux-style internal splitters (no outer frame around the pane area)
+pane_outer_borders = false
+
+agent_panel_sort = "spaces"
+
+tab_bar_position = "bottom"  # If you want it on the bottom like tmux
+
+[session]
+# tmux-resurrect + tmux-continuum: @continuum-restore 'on'
+# Restores supported agent conversations after a Herdr server restart.
+# Layout (workspaces/tabs/panes/cwd) always comes back from session.json.
+resume_agents_on_restore = true
+
+
+[experimental]
+# tmux: @resurrect-capture-pane-contents 'off'
+# When true, Herdr writes each pane's raw scrollback into session-history.json
+# so it can replay the screen after a full server restart. That file is plain
+# text on disk and captures whatever the pane printed -- tokens, env dumps,
+# command output. Disabled: layout (workspaces/tabs/panes/cwd) still comes back
+# from session.json, only the replayed screen contents are lost.
+#
+# Command history is unaffected -- that lives in ~/.zsh_history.d, written by
+# zsh itself (see zsh/conf.d/10-history-control.zsh), not by Herdr.
+pane_history = true
+
+# tmux: @resurrect-save-shell-history 'off'
+# Herdr does not restore shell history. No setting needed.

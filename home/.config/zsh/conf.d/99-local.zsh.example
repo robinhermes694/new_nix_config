@@ -1,0 +1,8 @@
+# Template for conf.d/99-local.zsh (which is git-ignored).
+# Copy this to 99-local.zsh and fill in real values:
+#
+#   cp conf.d/99-local.zsh.example conf.d/99-local.zsh
+
+export HUMIO_API_TOKEN=""
+
+export HF_TOKEN=""
